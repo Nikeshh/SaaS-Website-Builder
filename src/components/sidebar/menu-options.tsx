@@ -76,11 +76,12 @@ const MenuOptions = ({
                     variant="outline"
                     size={'icon'}
                 >
-                <Menu />
+                    <Menu />
                 </Button>
             </SheetTrigger>
 
             <SheetContent
+                showX={!defaultOpen}
                 side={'left'}
                 className={clsx(
                 'bg-background/80 backdrop-blur-xl fixed top-0 border-r-[1px] p-6',
@@ -106,19 +107,19 @@ const MenuOptions = ({
                                 variant="ghost"
                             >
                                 <div className="flex items-center text-left gap-2">
-                                <Compass />
-                                <div className="flex flex-col">
-                                    {details.name}
-                                    <span className="text-muted-foreground">
-                                        {details.address}
-                                    </span>
-                                </div>
+                                    <Compass />
+                                    <div className="flex flex-col">
+                                        {details.name}
+                                        <span className="text-muted-foreground">
+                                            {details.address}
+                                        </span>
+                                    </div>
                                 </div>
                                 <div>
-                                <ChevronsUpDown
-                                    size={16}
-                                    className="text-muted-foreground"
-                                />
+                                    <ChevronsUpDown
+                                        size={16}
+                                        className="text-muted-foreground"
+                                    />
                                 </div>
                             </Button>
                         </PopoverTrigger>
@@ -134,45 +135,45 @@ const MenuOptions = ({
                                         <CommandItem className="!bg-transparent my-2 text-primary broder-[1px] border-border p-2 rounded-md hover:!bg-muted cursor-pointer transition-all">
                                         {defaultOpen ? (
                                             <Link
-                                            href={`/agency/${user?.Agency?.id}`}
-                                            className="flex gap-4 w-full h-full"
-                                            >
-                                            <div className="relative w-16">
-                                                <Image
-                                                src={user?.Agency?.agencyLogo}
-                                                alt="Agency Logo"
-                                                fill
-                                                className="rounded-md object-contain"
-                                                />
-                                            </div>
-                                            <div className="flex flex-col flex-1">
-                                                {user?.Agency?.name}
-                                                <span className="text-muted-foreground">
-                                                {user?.Agency?.address}
-                                                </span>
-                                            </div>
-                                            </Link>
-                                        ) : (
-                                            <SheetClose asChild>
-                                            <Link
                                                 href={`/agency/${user?.Agency?.id}`}
                                                 className="flex gap-4 w-full h-full"
                                             >
                                                 <div className="relative w-16">
-                                                <Image
-                                                    src={user?.Agency?.agencyLogo}
-                                                    alt="Agency Logo"
-                                                    fill
-                                                    className="rounded-md object-contain"
-                                                />
+                                                    <Image
+                                                        src={user?.Agency?.agencyLogo}
+                                                        alt="Agency Logo"
+                                                        fill
+                                                        className="rounded-md object-contain"
+                                                    />
                                                 </div>
                                                 <div className="flex flex-col flex-1">
-                                                {user?.Agency?.name}
-                                                <span className="text-muted-foreground">
-                                                    {user?.Agency?.address}
-                                                </span>
+                                                    {user?.Agency?.name}
+                                                    <span className="text-muted-foreground">
+                                                        {user?.Agency?.address}
+                                                    </span>
                                                 </div>
                                             </Link>
+                                        ) : (
+                                            <SheetClose asChild>
+                                                <Link
+                                                    href={`/agency/${user?.Agency?.id}`}
+                                                    className="flex gap-4 w-full h-full"
+                                                >
+                                                    <div className="relative w-16">
+                                                        <Image
+                                                            src={user?.Agency?.agencyLogo}
+                                                            alt="Agency Logo"
+                                                            fill
+                                                            className="rounded-md object-contain"
+                                                        />
+                                                    </div>
+                                                    <div className="flex flex-col flex-1">
+                                                        {user?.Agency?.name}
+                                                        <span className="text-muted-foreground">
+                                                            {user?.Agency?.address}
+                                                        </span>
+                                                    </div>
+                                                </Link>
                                             </SheetClose>
                                         )}
                                         </CommandItem>
