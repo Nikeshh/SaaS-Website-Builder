@@ -78,3 +78,17 @@ export const updateUser = async (user: Partial<User>) => {
 
   return response
 }
+
+export type UsersWithAgencySubAccountPermissionsSidebarOptions = Prisma.PromiseReturnType<typeof __getUsersWithAgencySubAccountPermissionsSidebarOptions>
+
+const __getUsersWithAgencySubAccountPermissionsSidebarOptions = async (
+  agencyId: string
+) => {
+  return await db.user.findFirst({
+    where: { Agency: { id: agencyId } },
+    include: {
+      Agency: { include: { SubAccount: true } },
+      Permissions: { include: { SubAccount: true } },
+    },
+  })
+}
