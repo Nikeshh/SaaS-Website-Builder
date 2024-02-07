@@ -25,6 +25,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.5",
+    "@stripe/stripe-js": "^2.4.0",
     "@tremor/react": "^3.13.4",
     "@types/uuid": "^9.0.7",
     "@uploadthing/react": "^6.2.2",
