@@ -1,6 +1,6 @@
 import { Prisma, Role, Notification, User } from '@prisma/client'  
 import Stripe from 'stripe'
-import { _getTicketsWithAllRelations } from './queries'
+import { _getTicketsWithAllRelations, getMedia } from './queries'
 import { db } from './db'
 import { clerkClient, currentUser } from '@clerk/nextjs'
 
@@ -92,3 +92,7 @@ const __getUsersWithAgencySubAccountPermissionsSidebarOptions = async (
     },
   })
 }
+
+export type GetMediaFiles = Prisma.PromiseReturnType<typeof getMedia>
+
+export type CreateMediaType = Prisma.MediaCreateWithoutSubaccountInput
