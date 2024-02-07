@@ -1,8 +1,8 @@
-import { Prisma, Role, Notification, User } from '@prisma/client'  
+import { Prisma, Role, Notification, User, Lane, Ticket, Contact, Tag } from '@prisma/client'  
 import Stripe from 'stripe'
-import { _getTicketsWithAllRelations, getMedia } from './queries'
+import { _getTicketsWithAllRelations, getAuthUserDetails, getMedia, getPipelineDetails, getTicketsWithTags, getUserPermissions } from './queries'
 import { db } from './db'
-import { clerkClient, currentUser } from '@clerk/nextjs'
+import { z } from 'zod'
 
 export type TicketDetails = Prisma.PromiseReturnType<typeof _getTicketsWithAllRelations>
   
@@ -27,58 +27,6 @@ export type AuthUserWithAgencySidebarOptionsSubAccounts = Prisma.PromiseReturnTy
 
 export type UserWithPermissionsAndSubAccounts = Prisma.PromiseReturnType<typeof getUserPermissions>
 
-export const getAuthUserDetails = async () => {
-  const user = await currentUser()
-  if (!user) {
-    return
-  }
-
-  const userData = await db.user.findUnique({
-    where: {
-      email: user.emailAddresses[0].emailAddress,
-    },
-    include: {
-      Agency: {
-        include: {
-          SidebarOption: true,
-          SubAccount: {
-            include: {
-              SidebarOption: true,
-            },
-          },
-        },
-      },
-      Permissions: true,
-    },
-  })
-
-  return userData
-}
-
-export const getUserPermissions = async (userId: string) => {
-  const response = await db.user.findUnique({
-    where: { id: userId },
-    select: { Permissions: { include: { SubAccount: true } } },
-  })
-
-  return response
-}
-
-export const updateUser = async (user: Partial<User>) => {
-  const response = await db.user.update({
-    where: { email: user.email },
-    data: { ...user },
-  })
-
-  await clerkClient.users.updateUserMetadata(response.id, {
-    privateMetadata: {
-      role: user.role || 'SUBACCOUNT_USER',
-    },
-  })
-
-  return response
-}
-
 export type UsersWithAgencySubAccountPermissionsSidebarOptions = Prisma.PromiseReturnType<typeof __getUsersWithAgencySubAccountPermissionsSidebarOptions>
 
 const __getUsersWithAgencySubAccountPermissionsSidebarOptions = async (
@@ -96,3 +44,39 @@ const __getUsersWithAgencySubAccountPermissionsSidebarOptions = async (
 export type GetMediaFiles = Prisma.PromiseReturnType<typeof getMedia>
 
 export type CreateMediaType = Prisma.MediaCreateWithoutSubaccountInput
+
+export type TicketWithTags = Prisma.PromiseReturnType<typeof getTicketsWithTags>
+
+const currencyNumberRegex = /^\d+(\.\d{1,2})?$/
+
+export const TicketFormSchema = z.object({
+  name: z.string().min(1),
+  description: z.string().optional(),
+  value: z.string().refine((value) => currencyNumberRegex.test(value), {
+    message: 'Value must be a valid price.',
+  }),
+})
+
+export const CreatePipelineFormSchema = z.object({
+  name: z.string().min(1),
+})
+
+export type UpsertFunnelPage = Prisma.FunnelPageCreateWithoutFunnelInput
+
+export const LaneFormSchema = z.object({
+  name: z.string().min(1),
+})
+
+export type LaneDetail = Lane & {
+  Tickets: TicketAndTags[]
+}
+
+export type TicketAndTags = Ticket & {
+  Tags: Tag[]
+  Assigned: User | null
+  Customer: Contact | null
+}
+
+export type PipelineDetailsWithLanesCardsTagsTickets = Prisma.PromiseReturnType<
+  typeof getPipelineDetails
+>
