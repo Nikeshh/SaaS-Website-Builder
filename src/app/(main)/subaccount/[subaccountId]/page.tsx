@@ -241,7 +241,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
             </Card>
           </div>
           <div className="flex gap-4 xl:!flex-row flex-col">
-            <Card className="p-4 flex-1 h-[450px] overflow-scroll relative">
+            <Card className="p-4 flex-1 h-[450px] overflow-auto relative">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   Transition History
