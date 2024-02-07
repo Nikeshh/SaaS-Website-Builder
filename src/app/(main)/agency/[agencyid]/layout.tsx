@@ -1,3 +1,4 @@
+import React from 'react'
 import BlurPage from '@/components/global/blur-page'
 import InfoBar from '@/components/global/infobar'
 import Sidebar from '@/components/sidebar'
@@ -8,7 +9,6 @@ import {
 } from '@/lib/queries'
 import { currentUser } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
-import React from 'react'
 
 type Props = {
   children: React.ReactNode
