@@ -122,7 +122,7 @@ const AgencyDetails = ({ data }: Props) => {
                     },
                 }
 
-                const customerResponse = await fetch('/api/stripe/create-customer', {
+                /*const customerResponse = await fetch('/api/stripe/create-customer', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -130,7 +130,8 @@ const AgencyDetails = ({ data }: Props) => {
                     body: JSON.stringify(bodyData),
                 })
                 const customerData: { customerId: string } = await customerResponse.json()
-                custId = customerData.customerId
+                custId = customerData.customerId*/
+                custId = "1";
             }
 
             newUserData = await initUser({ role: 'AGENCY_OWNER' })
