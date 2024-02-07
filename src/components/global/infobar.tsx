@@ -60,7 +60,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
               </div>
             </SheetTrigger>
             <SheetContent className="mt-4 mr-4 pr-4 overflow-auto">
-              <SheetHeader className="text-left">
+              <SheetHeader className="text-left mb-2">
                 <SheetTitle>Notifications</SheetTitle>
                 <SheetDescription>
                   {(role === 'AGENCY_ADMIN' || role === 'AGENCY_OWNER') && (
@@ -74,7 +74,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
               {allNotifications?.map((notification) => (
                 <div
                   key={notification.id}
-                  className="flex flex-col gap-y-2 mb-2 overflow-x-scroll text-ellipsis"
+                  className="flex flex-col gap-y-2 mb-2 overflow-auto text-ellipsis"
                 >
                   <div className="flex gap-2">
                     <Avatar>
