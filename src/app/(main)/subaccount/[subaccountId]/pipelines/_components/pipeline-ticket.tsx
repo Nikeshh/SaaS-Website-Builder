@@ -119,6 +119,7 @@ const PipelineTicket = ({
     <Draggable
       draggableId={ticket.id.toString()}
       index={index}
+      key={ticket.id}
     >
       {(provided, snapshot) => {
         if (snapshot.isDragging) {

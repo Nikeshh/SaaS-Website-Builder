@@ -1,7 +1,7 @@
 import Loading from '@/components/global/loading'
 import React from 'react'
 
-const LoadingSuaccountPage = () => {
+const LoadingSubaccountPage = () => {
   return (
     <div className="h-screen w-screen flex justify-center items-center">
       <Loading></Loading>
@@ -9,4 +9,4 @@ const LoadingSuaccountPage = () => {
   )
 }
 
-export default LoadingSuaccountPage
+export default LoadingSubaccountPage

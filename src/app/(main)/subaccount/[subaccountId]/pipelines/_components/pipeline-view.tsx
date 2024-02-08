@@ -12,8 +12,9 @@ import { Lane, Ticket } from '@prisma/client'
 import { Flag, Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import PipelineLane from './pipeline-lane'
+import { StrictModeDroppable } from '@/components/drag-and-drop/strict-mode-droppable'
 
 type Props = {
   lanes: LaneDetail[]
@@ -146,7 +147,7 @@ const PipelineView = ({
             Create Lane
           </Button>
         </div>
-        <Droppable
+        <StrictModeDroppable
           droppableId="lanes"
           type="lane"
           direction="horizontal"
@@ -159,7 +160,7 @@ const PipelineView = ({
               ref={provided.innerRef}
             >
               <div className="flex mt-4">
-                {allLanes.map((lane, index) => (
+                {allLanes.map((lane: LaneDetail, index: number) => (
                   <PipelineLane
                     allTickets={allTickets}
                     setAllTickets={setAllTickets}
@@ -175,7 +176,7 @@ const PipelineView = ({
               </div>
             </div>
           )}
-        </Droppable>
+        </StrictModeDroppable>
         {allLanes.length == 0 && (
           <div className="flex items-center justify-center w-full flex-col">
             <div className="opacity-100">

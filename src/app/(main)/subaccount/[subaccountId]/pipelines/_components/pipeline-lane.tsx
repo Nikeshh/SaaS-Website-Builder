@@ -25,7 +25,7 @@ import { deleteLane, saveActivityLogsNotification } from '@/lib/queries'
 import { LaneDetail, TicketWithTags } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { useModal } from '@/providers/modal-provider'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { Draggable } from 'react-beautiful-dnd'
 import { Edit, MoreVertical, PlusCircleIcon, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { Dispatch, SetStateAction, useMemo } from 'react'
@@ -33,6 +33,7 @@ import React, { Dispatch, SetStateAction, useMemo } from 'react'
 import CustomModal from '@/components/global/custom-modal'
 import TicketForm from '@/components/forms/ticket-form'
 import PipelineTicket from './pipeline-ticket'
+import { StrictModeDroppable } from '@/components/drag-and-drop/strict-mode-droppable'
 
 interface PipelaneLaneProps {
   setAllTickets: Dispatch<SetStateAction<TicketWithTags>>
@@ -174,7 +175,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                     </div>
                   </div>
 
-                  <Droppable
+                  <StrictModeDroppable
                     droppableId={laneDetails.id.toString()}
                     key={laneDetails.id}
                     type="ticket"
@@ -200,7 +201,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                         </div>
                       </div>
                     )}
-                  </Droppable>
+                  </StrictModeDroppable>
 
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Options</DropdownMenuLabel>
