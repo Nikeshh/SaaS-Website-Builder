@@ -15,8 +15,7 @@ import React, { useState } from 'react'
 import {
   DragDropContext,
   DragStart,
-  DropResult,
-  Droppable,
+  DropResult
 } from 'react-beautiful-dnd'
 import Link from 'next/link'
 import FunnelPagePlaceholder from '@/components/icons/funnel-page-placeholder'
@@ -28,6 +27,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import FunnelStepCard from './funnel-step-card'
+import { StrictModeDroppable } from '@/components/drag-and-drop/strict-mode-droppable'
 
 type Props = {
   funnel: FunnelsForSubAccount
@@ -110,7 +110,7 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
                 onDragEnd={onDragEnd}
                 onDragStart={onDragStart}
               >
-                <Droppable
+                <StrictModeDroppable
                   droppableId="funnels"
                   direction="vertical"
                   key="funnels"
@@ -136,7 +136,7 @@ const FunnelSteps = ({ funnel, funnelId, pages, subaccountId }: Props) => {
                       ))}
                     </div>
                   )}
-                </Droppable>
+                </StrictModeDroppable>
               </DragDropContext>
             ) : (
               <div className="text-center text-muted-foreground py-6">
